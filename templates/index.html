@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}
+Adonis's Blog
+{% end %}
+
+{% block content %}
+<div id="main-board">
+    <div id="side-bar">
+        <div id="info">
+            <div id="photo"><img src="static/img/talent.jpg" alt="Adonis Ling" /></div>
+            <div id="name">Adonis Ling</div>
+        </div>
+    </div>
+    <div id="content">
+        {% for article in articles %}
+        <div>{{ article.title }}</div>
+        <div>{{ article.time }}</div>
+        <div>{{ article.content_md }}</div>
+        <ul>
+            {% for label in article.labels %}
+            <li>{{ label.detail }}</li>
+            {% end %}
+        </ul>
+        {% end %}
+    </div>
+</div>
+{% end %}

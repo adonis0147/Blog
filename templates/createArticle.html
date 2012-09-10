@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Post an Article
+{% end %}
+
+{% block content %}
+<div class="form-container">
+    <form id="article" action="createArticle" method="post">
+        <legend>发表文章</legend>
+        <label for="article-title">标题</label>
+        <input type="text" id="article-title" name="title"/>
+        <label for="article-labels">标签</label>
+        <input type="text" id="article-labels" name="labels"/>
+        <label for="article-content">内容</label>
+        <textarea id="article-content" name="content" rows="15"></textarea>
+        <p>
+            <button class="btn btn-primary" type="submit">发表</button>
+            <button class="btn btn-primary" type="button">取消</button>
+        </p>
+    </form>
+</div>
+{% end %}

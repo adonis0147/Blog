@@ -73,10 +73,23 @@ with MySQLdb.connect(user=user, passwd=passwd) as c:
 
     hostname = raw_input('请输入博客域名: ')
     port = raw_input('请输入程序监听的端口号: ')
+    user = raw_input('请输入博主的名字（默认: Adonis Ling）: ')
+    home_title = raw_input("请输入主页的标题（默认: Adonis's Blog ）: ")
+    photo = raw_input('请输入博主头像的文件名(默认: talent.jpg）')
+
+    if len(user) == 0:
+        user = 'Adonis Ling'
+    if len(home_title) == 0:
+        home_title = "Adonis's Blog"
+    if len(photo) == 0:
+        photo = 'talent.jpg'
 
     config.add_section('blog')
     config.set('blog', 'hostname', hostname)
     config.set('blog', 'port', port)
+    config.set('blog', 'user', user)
+    config.set('blog', 'home_title', home_title)
+    config.set('blog', 'photo', photo)
 
     with open('blog.cfg', 'w') as cfg:
         config.write(cfg)

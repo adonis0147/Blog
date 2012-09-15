@@ -52,13 +52,13 @@ class BaseHandler(tornado.web.RequestHandler):
     def write_error(self, status_code, **kwargs):
         if status_code == 400:
             error = "400: Bad Request"
-            self.render('error.html', error=error)
+            self.render('error.html', error=error, home_title=options.home_title)
         if status_code == 405:
             error = "405: Method Not Allowed"
-            self.render('error.html', error=error)
+            self.render('error.html', error=error, home_title=options.home_title)
         if status_code == 404:
             error = "404: Page Not Found"
-            self.render('error.html', error=error)
+            self.render('error.html', error=error, home_title=options.home_title)
 
     def get_current_user(self):
         return self.get_secure_cookie('user')
@@ -76,7 +76,9 @@ class HomeHandler(BaseHandler):
         page = p.page(1)
         isAdmin = self.isAdmin()
         label_list = Label.group(self.db)
-        self.render('index.html', articles=page.object_list, label_list=label_list, isAdmin=isAdmin, page=page)
+        self.render('index.html', articles=page.object_list, label_list=label_list,
+                isAdmin=isAdmin, page=page, home_title=options.home_title,
+                user=options.user, photo=options.photo)
 
 
 class ArticleListHandler(BaseHandler):
@@ -85,7 +87,9 @@ class ArticleListHandler(BaseHandler):
         page = p.page(int(pageId))
         isAdmin = self.isAdmin()
         label_list = Label.group(self.db)
-        self.render('index.html', articles=page.object_list, label_list=label_list, isAdmin=isAdmin, page=page)
+        self.render('index.html', articles=page.object_list, label_list=label_list,
+                isAdmin=isAdmin, page=page, home_title=options.home_title,
+                user=options.user, photo=options.photo)
 
 
 class ArticleHandler(BaseHandler):
@@ -93,13 +97,14 @@ class ArticleHandler(BaseHandler):
         article = Article.get(self.db, id)
         if article is None:
             error = '404: Page Not Found'
-            self.render('error.html', error=error)
+            self.render('error.html', error=error, home_title=options.home_title)
         else:
             isAdmin = self.isAdmin()
             label_list = Label.group(self.db)
             blog_hostname = options.blog_hostname
             self.render('article.html', article=article, label_list=label_list,
-                    blog_hostname=blog_hostname, isAdmin=isAdmin)
+                    blog_hostname=blog_hostname, isAdmin=isAdmin, home_title=options.home_title,
+                    user=options.user, photo=options.photo)
 
 
 class PreviewHandler(BaseHandler):
@@ -121,7 +126,8 @@ class PreviewHandler(BaseHandler):
         data['labels'] = self.get_argument('labels')
         data['content'] = content_md
 
-        self.render('preview.html', article=article, data=data)
+        self.render('preview.html', article=article, data=data,
+                user=options.user, photo=options.photo)
 
 
 class EditArticleHandler(BaseHandler):
@@ -130,7 +136,7 @@ class EditArticleHandler(BaseHandler):
         article = Article.get(self.db, id)
         if article is None:
             error = '404: Page Not Found'
-            self.render('error.html', error=error)
+            self.render('error.html', error=error, home_title=options.home_title)
         else:
             labels = ' '.join(map(lambda item: '[' + item['detail'] + ']', article['labels']))
             self.render('editArticle.html', article=article, labels=labels)
@@ -155,7 +161,7 @@ class UpdateArticleHandler(BaseHandler):
             self.redirect('/article/' + id, permanent=True)
         except:
             error = "The post data invalid"
-            self.render('error.html', error=error)
+            self.render('error.html', error=error, home_title=options.home_title)
 
 
 class CreateArticleHandler(BaseHandler):
@@ -180,7 +186,7 @@ class CreateArticleHandler(BaseHandler):
             self.redirect('/', permanent=True)
         except:
             error = "The post data invalid"
-            self.render('error.html', error=error)
+            self.render('error.html', error=error, home_title=options.home_title)
 
 
 class SearchHandler(BaseHandler):
@@ -196,7 +202,9 @@ class SearchHandler(BaseHandler):
         isAdmin = self.isAdmin()
         label_list = Label.group(self.db)
 
-        self.render('search.html', articles=page.object_list, label_list=label_list, isAdmin=isAdmin, page=page)
+        self.render('search.html', articles=page.object_list, label_list=label_list,
+                isAdmin=isAdmin, page=page, home_title=options.home_title,
+                user=options.user, photo=options.photo)
 
 
 class LoginHandler(BaseHandler):
@@ -227,7 +235,7 @@ class AuthHandler(BaseHandler):
                 self.redirect('/login', permanent=True)
         except:
             error = "The user not exists"
-            self.render('error.html', error=error)
+            self.render('error.html', error=error, home_title=options.home_title)
 
     def validate(self, username):
         regex = re.compile(r'^[\w\d]+$')
@@ -246,6 +254,9 @@ def main():
     define("mysql_user", default=mysql['user'])
     define("mysql_password", default=mysql['password'])
     define("blog_hostname", default=blog['hostname'])
+    define("user", default=blog['user'])
+    define("home_title", default=blog['home_title'])
+    define("photo", default=blog['photo'])
 
     http_server = tornado.httpserver.HTTPServer(Application())
     http_server.listen(options.port)

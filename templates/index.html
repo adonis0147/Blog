@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 
 {% block title %}
-Adonis's Blog
+{{ home_title }}
 {% end %}
 
 {% block content %}
 <div id="main-board">
     <div id="side-bar">
         <div id="info">
-            <div id="photo"><img src="/static/img/talent.jpg" alt="Adonis Ling" /></div>
-            <div id="name">Adonis Ling</div>
+            <div id="photo"><img src="/static/img/{{ photo }}" alt="{{ user }}" /></div>
+            <div id="name">{{ user }}</div>
             {% if isAdmin %}
             <div id="logout"><a href="/logout">登出</a></div>
             {% end %}

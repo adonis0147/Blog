@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ escape(article["title"]) }}
+{% end %}
+
+{% block content %}
+<div id="main-board">
+    <div id="side-bar">
+        <div id="info">
+            <div id="photo"><img src="/static/img/talent.jpg" alt="Adonis Ling" /></div>
+            <div id="name">Adonis Ling</div>
+        </div>
+    </div>
+    <div id="content">
+        <div class=article>
+            <h2>
+                <a href="#">{{ escape(article["title"]) }}</a>
+            </h2>
+            <hr />
+            <p class=labels>
+                <span>标签:&nbsp;&nbsp;</span>
+                {% for label in article["labels"] %}
+                <a href="#" class="label label-info">{{ escape(label["detail"]) }}</a>
+                {% end %}
+            </p>
+            <div class="content_html">{{ article["content_html"]}}</div>
+        </div>
+        <p>
+            <button class="btn btn-primary" type="button" onclick="publish();">发表</button>
+            <button class="btn btn-primary" type="button" onclick="back();">后退</button>
+        </p>
+        <div class="hidden">
+            <form action="createArticle" method="post">
+                {% module xsrf_form_html() %}
+                <input type="text" name="title" value="{{ escape(data["title"]) }}" />
+                <input type="text" name="labels" value="{{ escape(data["labels"]) }}" />
+                <textarea name="content">{{ escape(data["content"]) }}</textarea>
+                <input id="publish" type="submit" />
+            </form>
+        </div>
+    </div>
+</div>
+{% end %}

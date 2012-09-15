@@ -1,18 +1,23 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html xmlns:wb="http://open.weibo.com/wb">
     <head>
         <meta charset="UTF-8">
-        <link rel="icon" href="static/img/favicon.ico" type="image/x-icon" />
-        <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="static/css/base.css" />
+        <link rel="icon" href="/static/img/favicon.ico" type="image/x-icon" />
+        <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="/static/css/pygments.css" />
+        <link rel="stylesheet" href="/static/css/base.css" />
         <title>{% block title %}{% end %}</title>
     </head>
     <body>
         {% block content %}
         {% end %}
 
-        <script type="text/javascript" src="static/js/jquery-1.8.1.min.js"></script>
-        <script type="text/javascript" src="static/bootstrap/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="static/js/base.js"></script>
+        {% block operation %}
+        {% end %}
+
+        <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=3919322689" type="text/javascript" charset="utf-8"></script>
+        <script type="text/javascript" src="/static/js/jquery-1.8.1.min.js"></script>
+        <script type="text/javascript" src="/static/bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/static/js/base.js"></script>
     </body>
 </html>

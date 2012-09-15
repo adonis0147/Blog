@@ -1,0 +1,35 @@
+{% extends "index.html" %}
+
+{% block title %}
+{{ escape(article.title) }}
+{% end %}
+
+{% block article-list %}
+{% end %}
+
+{% block articles %}
+<div class=article>
+    <h2>
+        <a href="/article/{{ article.id }}">{{ escape(article.title) }}</a>
+        {% if isAdmin %}
+        <small><a href="/article/edit/{{ article.id }}">[编辑]</a></small>
+        {% end %}
+        <small class="time">{{ article.time.date() }}</small>
+    </h2>
+    <hr />
+    <p class=labels>
+    <span>标签:&nbsp;&nbsp;</span>
+    {% for label in article.labels %}
+    <a href="/search?key={{ escape(label.detail) }}" class="label label-info">{{ escape(label.detail) }}</a>
+    {% end %}
+    </p>
+    <div class="content_html">{{ article.content_html }}</div>
+</div>
+<div class="comments">
+    <wb:comments url="http://{{ blog_hostname }}/article/{{ article.id }}" width="auto" skin="blue" appkey="3919322689" ></wb:comments>
+    <a name="comments"></a>
+</div>
+{% end %}
+
+{% block page %}
+{% end %}

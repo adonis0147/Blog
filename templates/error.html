@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}
+Adonis's Blog
+{% end %}
+
+{% block content %}
+<div id="error-board-container">
+    <div id="error-board">
+        <div id="error">{{ error }}</div>
+        <p>
+            <button class="btn btn-primary" type="button" onclick="home();">首页</button>
+            <button class="btn btn-primary" type="button" onclick="back();">后退</button>
+        </p>
+    </div>
+</div>
+{% end %}

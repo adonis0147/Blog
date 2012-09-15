@@ -8,21 +8,86 @@ Adonis's Blog
 <div id="main-board">
     <div id="side-bar">
         <div id="info">
-            <div id="photo"><img src="static/img/talent.jpg" alt="Adonis Ling" /></div>
+            <div id="photo"><img src="/static/img/talent.jpg" alt="Adonis Ling" /></div>
             <div id="name">Adonis Ling</div>
+            {% if isAdmin %}
+            <div id="logout"><a href="/logout">登出</a></div>
+            {% end %}
+        </div>
+
+        {% block article-list %}
+        <div id="article-list">
+            <div class="list">本页文章:</div>
+            <ol>
+                {% for article in articles %}
+                <li><a href="/article/{{ article.id }}">{{ article.title }}</a></li>
+                {% end %}
+            </ol>
+        </div>
+        {% end %}
+
+        <div id="label-list">
+            <div class="list">标签列表:</div>
+            {% for label in label_list  %}
+            <div class="lineitem">
+                <a href="/search?key={{ escape(label.detail) }}" class="label label-info">{{ escape(label.detail) }}</a>
+                <span>X&nbsp;&nbsp;{{ label.number }}</span>
+            </div>
+            {% end %}
         </div>
     </div>
     <div id="content">
-        {% for article in articles %}
-        <div>{{ article.title }}</div>
-        <div>{{ article.time }}</div>
-        <div>{{ article.content_md }}</div>
-        <ul>
-            {% for label in article.labels %}
-            <li>{{ label.detail }}</li>
+        {% block articles %}
+            {% for article in articles %}
+            <div class=article>
+                <h2>
+                    <a href="/article/{{ article.id }}">{{ escape(article.title) }}</a>
+                    {% if isAdmin %}
+                    <small><a href="/article/edit/{{ article.id }}">[编辑]</a></small>
+                    {% end %}
+                    <small class="time">{{ article.time.date() }}</small>
+                </h2>
+                <hr />
+                <p class=labels>
+                    <span>标签:&nbsp;&nbsp;</span>
+                    {% for label in article.labels %}
+                    <a href="/search?key={{ escape(label.detail) }}" class="label label-info">{{ escape(label.detail) }}</a>
+                    {% end %}
+                </p>
+                <div class="content_html">{{ article.content_html }}</div>
+                <br />
+                <a href="/article/{{ article.id }}#comments">评&nbsp;&nbsp;论</a>
+            </div>
             {% end %}
-        </ul>
+        {% end %}
+        
+        {% block page %}
+        <div id="page">
+            <span id="previous">
+                {% if page.has_previous() %}
+                <button class="btn btn-primary" type="button" onclick="go('/page/{{ page.previous_page_number() }}');">上一页</button>
+                {% else %}
+                    <button class="btn btn-primary" type="button" disabled="disabled">上一页</button>
+                {% end %}
+            </span>
+            <span id="next">
+                {% if page.has_next() %}
+                    <button class="btn btn-primary" type="button" onclick="go('/page/{{ page.next_page_number() }}');">下一页</button>
+                {% else %}
+                    <button class="btn btn-primary" type="button" disabled="disabled">下一页</button>
+                {% end %}
+            </span>
+        </div>    
         {% end %}
     </div>
+</div>
+{% end %}
+
+{% block operation %}
+<div id="operation">
+    <div id="up" onclick="up();"><img src="/static/img/up.png" alt="up" /></div>
+    <div id="home" onclick="home();"><img src="/static/img/home.png" alt="home" /></div>
+    <div id="back" onclick="back();"><img src="/static/img/back.png" alt="home" /></div>
+    <div id="down" onclick="down();"><img src="/static/img/down.png" alt="down" /></div>
 </div>
 {% end %}

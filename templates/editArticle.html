@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Post an Article
+{% end %}
+
+{% block content %}
+<div class="form-container">
+    <form id="article" action="/article/update/{{ article.id }}" method="post">
+        <legend>编辑文章</legend>
+        {% module xsrf_form_html() %}
+        <label for="article-title">标题</label>
+        <input type="text" id="article-title" name="title" value="{{ escape(article.title) }}"/>
+        <label for="article-labels">标签</label>
+        <input type="text" id="article-labels" name="labels" value="{{ escape(labels) }}"/>
+        <label for="article-content">内容</label>
+        <textarea id="article-content" name="content" rows="15">{{ escape(article.content_md) }}</textarea>
+        <p>
+            <button class="btn btn-primary" type="submit">确定</button>
+            <button class="btn btn-primary" type="button" onclick="home();">取消</button>
+        </p>
+    </form>
+</div>
+{% end %}

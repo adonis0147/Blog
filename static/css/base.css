@@ -7,6 +7,7 @@ body {
     width: 70%;
     margin: auto;
     overflow: hidden;
+    margin-bottom: 50px;
 }
 
 #side-bar {
@@ -14,7 +15,6 @@ body {
     height: 180px;
     float: left;
     color: rgb(204, 51, 0);
-    border-bottom: 1px dashed gray;
     padding-top: 20px;
 
     box-sizing: border-box;
@@ -22,12 +22,39 @@ body {
     -webkit-box-sizing: border-box;
 }
 
+#info {
+    border-bottom: 1px dashed gray;
+    padding-bottom: 20px;
+}
+
+#article-list {
+    padding-top: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed gray;
+}
+
+.list {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+#label-list {
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+#article-list li, .lineitem {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 #content {
     background: rgba(255, 255, 255, 0.5);
     width: 79%;
     float: left;
     margin-left: 1%;
-    min-height: 750px;
+    min-height: 650px;
+    padding: 20px;
 
     box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -48,6 +75,10 @@ body {
     font-size: 20px;
 }
 
+#logout {
+    text-align: center;
+}
+
 .form-container {
     width: 70%;
     margin: auto;
@@ -66,4 +97,110 @@ body {
 
 #article-content {
     resize: none;    
+}
+
+.article h2 .time {
+    float: right;
+    margin-top: 18px;
+}
+
+.article {
+    border-top: 1px dashed gray;
+    padding-top: 15px;
+    padding-bottom: 50px;
+}
+
+.article:first-child {
+    border-top: none; 
+    padding-top: 0px;
+}
+
+.comments {
+    border-top: 1px dashed gray;
+    padding-top: 20px;
+}
+
+.hidden {
+    display: none;
+}
+
+.login, #error-board-container {
+    width: 500px;
+    height: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+    padding-top: 50px;
+    background: rgba(255, 255, 255, 0.5);
+
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+.login form {
+    width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5px;
+}
+
+.login form label {
+    width: 80px;
+    display: inline-block;
+}
+
+.login form .form-lineitem {
+    text-align: center;
+}
+
+#page {
+    border-top: 1px dashed gray;
+    padding-top: 15px;
+}
+
+#previous {
+    display: inline-block;
+    float: left;
+}
+
+#next {
+    display: inline-block;
+    float: right;
+}
+
+#up, #home, #down, #back {
+    width: 24px;
+    height: 24px;
+    margin: 10px;
+}
+
+#up:hover, #home:hover, #down:hover, #back:hover {
+    cursor: pointer;
+}
+
+#operation {
+    position: fixed;
+    top: 43%;
+    right: 12%;
+}
+
+#error-board {
+    width: 400px; 
+    margin: auto;
+}
+
+#error {
+    text-align: center;
+    color: red;
+    font: 35px bold;
+}
+
+#error-board p {
+    text-align: center;
+    margin-top: 25px;
 }

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}
+Login
+{% end %}
+
+{% block content %}
+<div class="login">
+    <form action="/auth" class="login-form" method="post">
+        {% module xsrf_form_html() %}
+        <input type="hidden" name="next" value="{{ next }}"/>
+        <div class="form-lineitem">
+            <label for="username">用户:</label>
+            <input type="text" id="username" name="username" />
+        </div>
+        <div class="form-lineitem">
+            <label for="password">密码:</label>
+            <input type="password" id="password" name="password" />
+        </div>
+        <div class="form-lineitem">
+            <p>
+                <button class="btn btn-primary" type="submit">登录</button>
+                <button class="btn btn-primary" type="button" onclick="home();">取消</button>
+            </p>
+        </div>
+    </form>
+</div>
+{% end %}

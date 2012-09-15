@@ -204,3 +204,12 @@ body {
     text-align: center;
     margin-top: 25px;
 }
+
+.space {
+    display: inline-block;
+    width: 30px;
+}
+
+.article {
+    font-size: 15px;
+}

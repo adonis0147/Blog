@@ -232,7 +232,8 @@ class AuthHandler(BaseHandler):
                 self.set_secure_cookie("user", "admin", expires_days=1)
                 self.redirect(self.get_argument('next', '/'), permanent=True)
             else:
-                self.redirect('/login', permanent=True)
+                error = "Authentication failure"
+                self.render('error.html', error=error, home_title=options.home_title)
         except:
             error = "The user not exists"
             self.render('error.html', error=error, home_title=options.home_title)
